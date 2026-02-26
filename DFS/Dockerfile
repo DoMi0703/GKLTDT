@@ -1,17 +1,12 @@
-# Dockerfile dùng OpenJDK 21 (tag ổn định trên Docker Hub)
-FROM openjdk:21-slim
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-# copy source
-COPY GraphDFSServer.java /app/
+COPY GraphDFSServer.java .
 
-# compile
-RUN javac -d . GraphDFSServer.java
+RUN javac GraphDFSServer.java
 
-# Render sẽ set PORT env var; expose cho minh chứng
-ENV PORT 8080
+ENV PORT=8080
 EXPOSE 8080
 
-# run
-CMD ["sh", "-c", "java -cp . GraphDFSServer"]
+CMD ["sh", "-c", "java GraphDFSServer"]
